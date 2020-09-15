@@ -1,0 +1,82 @@
+Fungsional:
+1. Pengguna dapat memasukkan kontak:
+    a. Satu per Satu
+    b. Langsung banyak*
+2. Pengguna dapat mengirimkan pesan:
+    a. Satu per Satu
+    b. Langsung banyak:
+        1) Semua kontak
+        2) Dipilih berdasarkan kategori atau grup
+3. Pengguna dapat membuat kategori dan grup
+    a. Grup = desa-desa
+    b. Kategori:
+        1) Pasien
+        2) Karyawan
+        3) Perangkat Desa
+        4) Takmir Masjid
+        5) Bidan Desa
+        6) Kader Posyandu
+        7) Pasien berbasis Keluarga dan Masyarakat (MAA)
+        8) Pondok Pesantren
+        9) Kepala Sekolah
+4. Pengguna dapat membuat template pesan
+
+Struktur Database:
+1. whatsapp.contacts
+    a. id
+    b. norm
+    c. name
+    d. contact
+    e. id_group
+    f. id_category
+    g. is_active
+    h. is_tester
+2. whatsapp.group
+    a. id
+    b. name
+3. whatsapp.category
+    a. id
+    b. name
+4. whatsapp.templates
+    a. id
+    b. name
+    c. text
+    d. information
+5. whatsapp.machines*
+    a. id
+    b. name
+    c. hardware_identifier
+    d. created_at
+    e. updated_at
+6. whatsapp.outbox
+    a. id
+    b. machine_id
+    c. is_group
+    d. group_name
+    e. contact
+    f. is_reply
+    g. content_type
+    h. content_location
+    i. message
+    j. sent_at
+    k. processed
+    l. processed_at
+    m. created_at
+    n. updated_at
+    o. contact_parser
+7. whatsapp.inbox
+    a. id
+    b. machine_id
+    c. is_group
+    d. group_name
+    e. contact
+    f. is_reply
+    g. content_type
+    h. content_location
+    i. message
+    j. sent_at
+    k. processed
+    l. processed_at
+    m. created_at
+    n. updated_at
+    o. contact_parser
