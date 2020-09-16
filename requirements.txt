@@ -6,10 +6,10 @@ Fungsional:
     a. Satu per Satu
     b. Langsung banyak:
         1) Semua kontak
-        2) Dipilih berdasarkan kategori atau grup
-3. Pengguna dapat membuat kategori dan grup
-    a. Grup = desa-desa
-    b. Kategori:
+        2) Dipilih berdasarkan grup dan desa
+3. Pengguna dapat membuat desa dan grup
+    a. Desa
+    b. Grup:
         1) Pasien
         2) Karyawan
         3) Perangkat Desa
@@ -28,13 +28,13 @@ Struktur Database:
     c. name
     d. contact
     e. id_group
-    f. id_category
+    f. id_desa
     g. is_active
     h. is_tester
 2. whatsapp.group
     a. id
     b. name
-3. whatsapp.category
+3. whatsapp.desa
     a. id
     b. name
 4. whatsapp.templates
