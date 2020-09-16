@@ -27,20 +27,20 @@
             <thead>
                 <tr>
                     <th>Nomor</th>
-                    <th>Nama Grup</th>
+                    <th>Nama Desa</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>Nomor</th>
-                    <th>Nama Grup</th>
+                    <th>Nama Desa</th>
                 </tr>
             </tfoot>
             <tbody>
-                {% for grup in Grups %}
+                {% for desa in Desas %}
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{grup.name}}</td>
+                    <td>{{desa.name}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
