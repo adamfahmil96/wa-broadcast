@@ -11,3 +11,10 @@ def index(request):
         'Grups': grups,
     }
     return render(request, 'grup/index.html', context)
+
+def tambah(request):
+    context = {
+        'Judul': 'Tambah Grup',
+        'Subjudul': 'Masukkan Grup Baru',
+    }
+    return render(request, 'grup/tambah.html', context)
