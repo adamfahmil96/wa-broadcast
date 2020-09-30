@@ -1,38 +1,40 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 
 # Create your views here.
 from .models import Desa
 from .forms import DesaForm
 
+
 class DesaListView(TemplateView):
-    template_name   = ''
+    template_name   = 'desa/index.html'
+    def get_context_data(self, *args, **kwargs):
+        desas  = reversed(Desa.objects.all().order_by('id'))
+        context = {
+            'Judul'         : 'Lihat Desa',
+            'Judul_Tabel'   : 'Tabel Desa',
+            'Desas'         : desas,
+        }
+        return context
 
-def index(request):
-    desas = reversed(Desa.objects.all().order_by('id'))
-    context = {
-        'Judul': 'Lihat Desa',
-        'Judul_Tabel': 'Tabel Desa',
-        'Desas': desas,
-    }
-    return render(request, 'desa/index.html', context)
 
-def tambah(request):
-    desa_form = DesaForm(request.POST or None)
-    error = None
-    valid = False
-    context = {
-        'Judul': 'Tambah Desa',
-        'Subjudul': 'Masukkan Desa Baru',
-        'desa_form': desa_form,
-        'error': error,
-    }
-    if request.method == 'POST':
-        if desa_form.is_valid():
-            desa_form.save()
-            return redirect('desa:index')
-        else:
-            error = desa_form.errors
-            context['error'] = error
-    return render(request, 'desa/tambah.html', context)
+class DesaFormView(View):
+    template_name   = 'desa/tambah.html'
+    form    = DesaForm()
+    mode    = None
+    context = {}
+
+    def get(self, *args, **kwargs):
+        self.context = {
+            'Judul'     : 'Tambah Desa',
+            'Subjudul'  : 'Masukkan Desa Baru',
+            'desa_form' : self.form,
+        }
+        return render(self.request, self.template_name, self.context)
+
+    def post(self, *args, **kwargs):
+        self.form   = DesaForm(self.request.POST)
+        if self.form.is_valid():
+            self.form.save()
+        return redirect('desa:index')

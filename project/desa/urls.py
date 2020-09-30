@@ -1,8 +1,8 @@
 from django.urls import path, re_path
 
-from . import views
+from .views import DesaListView, DesaFormView
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('tambah', views.tambah, name="tambah"),
+    path('', DesaListView.as_view(), name="index"),
+    path('tambah', DesaFormView.as_view(), name="tambah"),
 ]
