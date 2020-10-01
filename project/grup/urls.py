@@ -1,8 +1,8 @@
 from django.urls import path, re_path
 
-from . import views
+from .views import GrupListView, GrupFormView
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('tambah', views.tambah, name="tambah"),
+    path('', GrupListView.as_view(), name="index"),
+    path('tambah', GrupFormView.as_view(), name="tambah"),
 ]

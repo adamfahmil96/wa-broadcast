@@ -24,7 +24,18 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{Subjudul}}</h6>
             </div>
             <div class="card-body">
-                The styling for this basic card example is created by using default Bootstrap utility classes. By using utility classes, the style of the card component can be easily modified with no need for any custom CSS!
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="{{desa_form.name.id_for_label}}" class="col-sm-2 col-form-label">
+                            {{grup_form.name.label}}
+                        </label>
+                        <div class="col-sm-10">
+                            {{grup_form.name}}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success float-right">Buat</button>
+                </form>
             </div>
         </div>
     </div>
