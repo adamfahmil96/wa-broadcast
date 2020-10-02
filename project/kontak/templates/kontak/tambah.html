@@ -19,14 +19,14 @@
             <div class="card-body">
                 <form method="POST">
                     {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="{{desa_form.name.id_for_label}}" class="col-sm-2 col-form-label">
-                            {{desa_form.name.label}}
-                        </label>
-                        <div class="col-sm-10">
-                            {{desa_form.name}}
+                    {% for field in kontak_form %}
+                        <div class="form-group row">
+                            <label for="{{field.id_for_label}}" class="col-sm-2 col-form-label">{{field.label}}</label>
+                            <div class="col-sm-10">
+                                {{field}}
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                     <button type="submit" class="btn btn-success float-right">Buat</button>
                 </form>
             </div>

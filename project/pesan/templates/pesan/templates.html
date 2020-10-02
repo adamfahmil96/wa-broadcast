@@ -9,11 +9,11 @@
 {% block heading %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">{{Judul}}</h1>
-    <a href="{% url "kontak:tambah" %}" class="btn btn-success btn-icon-split">
+    <a href="{% url "pesan:templates-tambah" %}" class="btn btn-success btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
-        <span class="text">Tambah Kontak</span>
+        <span class="text">Tambah Templates</span>
     </a>
 </div>
 {% endblock heading %}
@@ -30,29 +30,26 @@
             <thead>
                 <tr>
                     <th>Nomor</th>
-                    <th>No RM</th>
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
+                    <th>Nama Template</th>
+                    <th>Isi Template</th>
                     <th>Grup</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>Nomor</th>
-                    <th>No RM</th>
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
+                    <th>Nama Template</th>
+                    <th>Isi Template</th>
                     <th>Grup</th>
                 </tr>
             </tfoot>
             <tbody>
-                {% for kontak in Kontaks %}
+                {% for template in Templates %}
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{kontak.norm}}</td>
-                    <td>{{kontak.name}}</td>
-                    <td>{{kontak.contact}}</td>
-                    <td>{{kontak.group}}</td>
+                    <td>{{template.name}}</td>
+                    <td>{{template.text}}</td>
+                    <td>{{template.group}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

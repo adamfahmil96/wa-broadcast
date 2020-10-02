@@ -1,7 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 
-from . import views
+from .views import index, TemplateListView, TemplateFormView
 
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', index, name="index"),
+    path('templates/', TemplateListView.as_view(), name="templates"),
+    path('templates/tambah/', TemplateFormView.as_view(), name="templates-tambah"),
 ]
