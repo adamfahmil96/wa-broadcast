@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import TemplateView, View, RedirectView
 
 # Create your views here.
 from .models import Contacts
@@ -26,6 +26,10 @@ class KontakFormView(View):
     context = {}
 
     def get(self, *args, **kwargs):
+        if self.mode == 'ubah':
+            kontak_ubah = Contacts.objects.get(id=kwargs['ubah_id'])
+            data        = kontak_ubah.__dict__
+            self.form   = KontakForm(initial=data, instance=kontak_ubah)
         self.context    = {
             'Judul'         : 'Tambah Kontak',
             'Subjudul'      : 'Masukkan Kontak Baru',
@@ -34,14 +38,22 @@ class KontakFormView(View):
         return render(self.request, self.template_name, self.context)
     
     def post(self, *args, **kwargs):
-        self.form   = KontakForm(self.request.POST)
+        if kwargs.__contains__('ubah_id'):
+            kontak_ubah = Contacts.objects.get(id=kwargs['ubah_id'])
+            self.form   = KontakForm(self.request.POST, instance=kontak_ubah)
+        else:
+            self.form   = KontakForm(self.request.POST)
         if self.form.is_valid():
-            Contacts.objects.create(
-                norm        = self.form.cleaned_data.get('norm'),
-                name        = self.form.cleaned_data.get('name'),
-                contact     = self.form.cleaned_data.get('contact'),
-                group       = self.form.cleaned_data.get('group'),
-                is_active   = 1,
-                is_tester   = 0,
-            )
+            self.form.save()
         return redirect('kontak:index')
+
+
+class KontakDeleteView(RedirectView):
+    pattern_name    = 'kontak:index'
+    permanent       = False
+    query_string    = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        hapus_id    = kwargs['hapus_id']
+        Contacts.objects.filter(id=hapus_id).delete()
+        return super().get_redirect_url()

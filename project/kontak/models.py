@@ -8,8 +8,8 @@ class Contacts(models.Model):
     name        = models.CharField(max_length=50)
     contact     = models.CharField(max_length=50)
     group       = models.ForeignKey(Grup, on_delete=models.SET_NULL, null=True)
-    is_active   = models.IntegerField()
-    is_tester   = models.IntegerField()
+    is_active   = models.IntegerField(default=1)
+    is_tester   = models.IntegerField(default=0)
 
     def __str__(self):
         return "{}. {} - {}".format(self.id, self.name, self.contact)

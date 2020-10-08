@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import TemplateView, View, RedirectView
 
 # Create your views here.
 from .models import Grup
@@ -26,6 +26,10 @@ class GrupFormView(View):
     context = {}
 
     def get(self, *args, **kwargs):
+        if self.mode == 'ubah':
+            grup_ubah   = Grup.objects.get(id=kwargs['ubah_id'])
+            data        = grup_ubah.__dict__
+            self.form   = GrupForm(initial=data, instance=grup_ubah)
         self.context = {
             'Judul'     : 'Tambah Grup',
             'Subjudul'  : 'Masukkan Grup Baru',
@@ -34,7 +38,22 @@ class GrupFormView(View):
         return render(self.request, self.template_name, self.context)
 
     def post(self, *args, **kwargs):
-        self.form   = GrupForm(self.request.POST)
+        if kwargs.__contains__('ubah_id'):
+            grup_ubah   = Grup.objects.get(id=kwargs['ubah_id'])
+            self.form   = GrupForm(self.request.POST, instance=grup_ubah)
+        else:
+            self.form   = GrupForm(self.request.POST)
         if self.form.is_valid():
             self.form.save()
         return redirect('grup:index')
+
+
+class GrupDeleteView(RedirectView):
+    pattern_name    = 'grup:index'
+    permanent       = False
+    query_string    = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        hapus_id    = kwargs['hapus_id']
+        Grup.objects.filter(id=hapus_id).delete()
+        return super().get_redirect_url()

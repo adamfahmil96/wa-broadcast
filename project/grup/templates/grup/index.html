@@ -32,14 +32,16 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Nomor</th>
+                    <th>No</th>
                     <th>Nama Grup</th>
+                    <th>Menu</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Nomor</th>
+                    <th>No</th>
                     <th>Nama Grup</th>
+                    <th>Menu</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -47,6 +49,10 @@
                 <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{grup.name}}</td>
+                    <td>
+                        <a class="btn btn-warning" href="{% url 'grup:ubah' grup.id %}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" href="{% url 'grup:hapus' grup.id %}"><i class="fas fa-trash"></i></a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
