@@ -1,6 +1,8 @@
 from django import forms
 
 from .models import Templates
+from grup.models import Grup
+from desa.models import Desa
 
 class TemplateForm(forms.ModelForm):
     class Meta:
@@ -29,3 +31,31 @@ class TemplateForm(forms.ModelForm):
                 }
             )
         }
+
+
+class SendForm(forms.Form):
+    group   = forms.ModelChoiceField(
+        queryset    = Grup.objects.all(),
+        widget      = forms.Select(
+            attrs       = {
+                'class': 'form-control'
+            }
+        )
+    )
+    desa    = forms.ModelChoiceField(
+        queryset    = Desa.objects.all(),
+        widget      = forms.Select(
+            attrs   = {
+                'class': 'form-control'
+            }
+        ),
+        required=False
+    )
+    template_pesan  = forms.ModelChoiceField(
+        queryset    = Templates.objects.all(),
+        widget      = forms.Select(
+            attrs   = {
+                'class': 'form-control'
+            }
+        )
+    )

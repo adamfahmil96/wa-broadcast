@@ -6,7 +6,7 @@ from .models import Contacts
 class KontakForm(forms.ModelForm):
     class Meta:
         model   = Contacts
-        fields  = ['norm', 'name', 'contact', 'group']
+        fields  = ['norm', 'name', 'contact', 'group', 'desa']
         labels  = {
             'norm': 'No RM',
             'name': 'Nama',
@@ -36,6 +36,12 @@ class KontakForm(forms.ModelForm):
                 attrs   = {
                     'class': 'form-control',
                     'id': 'id_group',
+                }
+            ),
+            'desa': forms.Select(
+                attrs   = {
+                    'class': 'form-control',
+                    'id': 'id_desa',
                 }
             ),
         }

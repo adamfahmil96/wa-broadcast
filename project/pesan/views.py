@@ -3,7 +3,10 @@ from django.views.generic.base import TemplateView, View, RedirectView
 
 # Create your views here.
 from .models import Templates, Outbox
-from .forms import TemplateForm
+from kontak.models import Contacts
+from grup.models import Grup
+from desa.models import Desa
+from .forms import TemplateForm, SendForm
 
 
 class TemplateListView(TemplateView):
@@ -62,5 +65,39 @@ class TemplateDeleteView(RedirectView):
 def index(request):
     context = {
         'Judul': 'Kirim Pesan'
+    }
+    return render(request, 'pesan/index.html', context)
+
+def sendMessage(request):
+    send_form   = SendForm(request.POST or None)
+    error       = None
+    if request.method == 'POST':
+        if send_form.is_valid():
+            # get data from SendForm
+            group           = send_form.cleaned_data.get('group')
+            desa            = send_form.cleaned_data.get('desa')
+            name_template   = send_form.cleaned_data.get('template_pesan')
+
+            # get id for each 'grup' and 'desa'
+            group_id    = Grup.objects.get(name=group).id
+            desa_id     = Desa.objects.get(name=desa).id
+
+            # get message from name template
+            template_pesan  = Templates.objects.get(name=name_template).text
+            
+            # get contact from Contacts
+            get_contacts= Contacts.objects.filter(group_id=group_id).filter(desa_id=desa_id).values('contact')
+            # save to Outbox
+            Outbox.objects.create(
+                contact = get_contacts,
+                message = template_pesan,
+            )
+        else:
+            error = send_form.errors
+    context = {
+        'Judul'     : 'Kirim Pesan',
+        'Subjudul'  : 'Mengirim Pesan Massal',
+        'send_form' : send_form,
+        'error'     : error
     }
     return render(request, 'pesan/index.html', context)

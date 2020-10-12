@@ -34,6 +34,7 @@
                     <th>Nama</th>
                     <th>Nomor HP</th>
                     <th>Grup</th>
+                    <th>Desa</th>
                     <th>Menu</th>
                 </tr>
             </thead>
@@ -44,6 +45,7 @@
                     <th>Nama</th>
                     <th>Nomor HP</th>
                     <th>Grup</th>
+                    <th>Desa</th>
                     <th>Menu</th>
                 </tr>
             </tfoot>
@@ -51,10 +53,19 @@
                 {% for kontak in Kontaks %}
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{kontak.norm}}</td>
+                    {% if kontak.norm is None %}
+                        <td>-</td>
+                    {% else %}
+                        <td>{{kontak.norm}}</td>
+                    {% endif %}
                     <td>{{kontak.name}}</td>
                     <td>{{kontak.contact}}</td>
                     <td>{{kontak.group}}</td>
+                    {% if kontak.desa is None %}
+                        <td>-</td>
+                    {% else %}
+                        <td>{{kontak.desa}}</td>
+                    {% endif %}
                     <td>
                         <a class="btn btn-warning" href="{% url 'kontak:ubah' kontak.id %}"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" href="{% url 'kontak:hapus' kontak.id %}"><i class="fas fa-trash"></i></a>
