@@ -26,7 +26,9 @@ SECRET_KEY = '9u2x669^@(r(yqp9#fe+ww@-x%$=d2p@drhsohctp=%ipr*q48'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '168.168.168.45', # my IP
+]
 
 
 # Application definition
@@ -80,8 +82,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'whatsapp2',
+        'USER': 'admin',
+        'PASSWORD': 'S!MRSGos2',
+        'HOST': '168.168.168.124',
+        'PORT': '3306',
     }
 }
 
