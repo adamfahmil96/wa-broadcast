@@ -6,3 +6,6 @@ class Grup(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
+    
+    class Meta:
+        db_table    = "group"

@@ -12,6 +12,9 @@ class Templates(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
+    
+    class Meta:
+        db_table    = "templates"
 
 
 class Outbox(models.Model):
@@ -52,3 +55,6 @@ class Outbox(models.Model):
 
     def __str__(self):
         return "{}".format(self.id)
+    
+    class Meta:
+        db_table    = "outbox"

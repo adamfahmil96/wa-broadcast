@@ -15,3 +15,6 @@ class Contacts(models.Model):
 
     def __str__(self):
         return "{}. {} - {}".format(self.id, self.name, self.contact)
+    
+    class Meta:
+        db_table    = "contacts"
