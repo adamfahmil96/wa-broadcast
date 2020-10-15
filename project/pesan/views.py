@@ -87,11 +87,16 @@ def sendMessage(request):
             
             # get contact from Contacts
             get_contacts= Contacts.objects.filter(group_id=group_id).filter(desa_id=desa_id).values('contact')
+            store = None
+            list_outbox = []
+            for no_kontak in get_contacts:
+                store = Outbox(contact=no_kontak.get('contact'), message=template_pesan)
+                list_outbox.append(store)
+            
             # save to Outbox
-            Outbox.objects.create(
-                contact = get_contacts,
-                message = template_pesan,
-            )
+            Outbox.objects.bulk_create(list_outbox)
+
+            return redirect('pesan:index')
         else:
             error = send_form.errors
     context = {
