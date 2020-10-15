@@ -80,18 +80,25 @@ def sendMessage(request):
 
             # get id for each 'grup' and 'desa'
             group_id    = Grup.objects.get(name=group).id
-            desa_id     = Desa.objects.get(name=desa).id
+            if desa is not None:
+                desa_id     = Desa.objects.get(name=desa).id
 
             # get message from name template
             template_pesan  = Templates.objects.get(name=name_template).text
             
             # get contact from Contacts
-            get_contacts= Contacts.objects.filter(group_id=group_id).filter(desa_id=desa_id).values('contact')
             store = None
             list_outbox = []
-            for no_kontak in get_contacts:
-                store = Outbox(contact=no_kontak.get('contact'), message=template_pesan)
-                list_outbox.append(store)
+            if desa is not None:
+                get_contacts= Contacts.objects.filter(group_id=group_id).filter(desa_id=desa_id).values('contact')
+                for no_kontak in get_contacts:
+                    store = Outbox(contact=no_kontak.get('contact'), message=template_pesan, grup_name=group, desa_name=desa, title_message=name_template)
+                    list_outbox.append(store)
+            else:
+                get_contacts= Contacts.objects.filter(group_id=group_id).values('contact')
+                for no_kontak in get_contacts:
+                    store = Outbox(contact=no_kontak.get('contact'), message=template_pesan, grup_name=group, title_message=name_template)
+                    list_outbox.append(store)
             
             # save to Outbox
             Outbox.objects.bulk_create(list_outbox)

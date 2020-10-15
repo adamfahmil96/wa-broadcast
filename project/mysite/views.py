@@ -21,7 +21,7 @@ class DashboardListView(TemplateView):
             ['danger', 'Jumlah Kontak', str(kontaks.count()) + ' kontak', 'fa-phone'],
             ['primary', 'Jumlah Template Pesan', str(templates.count()) + ' template', 'fa-inbox'],
             ['warning', 'Jumlah Grup', str(grups.count()) + ' grup', 'fa-users'],
-            ['info', 'Jumlah Desa', str(grups.count()) + ' desa', 'fa-flag'],
+            ['info', 'Jumlah Desa', str(desas.count()) + ' desa', 'fa-flag'],
         ]
 
         context = {

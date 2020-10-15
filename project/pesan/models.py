@@ -26,6 +26,8 @@ class Outbox(models.Model):
         default     = 'N'
     )
     group_name      = models.CharField(max_length=100, null=True)
+    desa_name       = models.CharField(max_length=50, null=True)
+    grup_name       = models.CharField(max_length=50, null=True)
     contact         = models.CharField(max_length=50, null=True)
     is_reply        = models.CharField(
         max_length  = 3,
@@ -40,6 +42,7 @@ class Outbox(models.Model):
         default     = 'Text'
     )
     content_location= models.TextField(null=True)
+    title_message   = models.CharField(max_length=50, null=True)
     message         = models.TextField(null=True)
     sent_at         = models.DateTimeField(null=True)
     processed       = models.CharField(
