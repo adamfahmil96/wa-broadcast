@@ -86,7 +86,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'whatsapp2',
+        # 'NAME': 'whatsapp2',
+        'NAME': 'whatsapp',
         'USER': 'admin',
         'PASSWORD': 'S!MRSGos2',
         'HOST': '168.168.168.124',
