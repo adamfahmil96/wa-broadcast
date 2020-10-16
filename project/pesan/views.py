@@ -62,13 +62,29 @@ class TemplateDeleteView(RedirectView):
         return super().get_redirect_url()
 
 
-def index(request):
-    context = {
-        'Judul': 'Kirim Pesan'
-    }
-    return render(request, 'pesan/index.html', context)
+class PesanMassalListView(TemplateView):
+    template_name   = 'pesan/index.html'
 
-def sendMessage(request):
+    def get_context_data(self, *args, **kwargs):
+        # get name of template
+        name_template   = Templates.objects.all().values('name').distinct()
+        
+        # count sent_at based on name_template
+        list_template   = []
+        for name in name_template:
+            name            = name.get('name')
+            count_outbox    = Outbox.objects.filter(title_message=name).filter(created_at__isnull=False).filter(sent_at__isnull=False).count()
+            each_list       = [name, count_outbox]
+            list_template.append(each_list)
+        context     = {
+            'Judul': 'Lihat Pengiriman Pesan Massal',
+            'Judul_Tabel': 'Tabel Pengiriman Pesan Massal',
+            'list_template': list_template,
+        }
+        return context
+
+
+def sendMessageMany(request):
     send_form   = SendForm(request.POST or None)
     error       = None
     if request.method == 'POST':
@@ -107,9 +123,9 @@ def sendMessage(request):
         else:
             error = send_form.errors
     context = {
-        'Judul'     : 'Kirim Pesan',
+        'Judul'     : 'Kirim Pesan Massal',
         'Subjudul'  : 'Mengirim Pesan Massal',
         'send_form' : send_form,
         'error'     : error
     }
-    return render(request, 'pesan/index.html', context)
+    return render(request, 'pesan/kirim-massal.html', context)
