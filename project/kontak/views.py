@@ -7,24 +7,14 @@ from .models import Contacts
 from .forms import KontakForm
 
 
-# class KontakListView(TemplateView):
-#     template_name   = 'kontak/index.html'
-
-#     def get_context_data(self, *args, **kwargs):
-#         kontaks = reversed(Contacts.objects.all().order_by('id'))
-#         context = {
-#             'Judul'         : 'Lihat Kontak',
-#             'Judul_Tabel'   : 'Tabel Kontak',
-#             'Kontaks'       : kontaks,
-#         }
-#         return context
 class KontakListView(ListView):
     model       = Contacts
     ordering    = ['-id']
-    paginate_by = 10
+    paginate_by = 5
     extra_context   = {
         'Judul'         : 'Lihat Kontak',
         'Judul_Tabel'   : 'Tabel Kontak',
+        'Total_Kontak'  : Contacts.objects.all().count(),
     }
     def get_context_data(self, *args, **kwargs):
         self.kwargs.update(self.extra_context)

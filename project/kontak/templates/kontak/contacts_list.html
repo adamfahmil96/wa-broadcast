@@ -20,57 +20,58 @@
         <h6 class="m-0 font-weight-bold text-primary">{{Judul_Tabel}}</h6>
     </div>
     <div class="card-body">
+        <h6 class="font-weight-bold text-right">Total: {{ Total_Kontak }}</h6>
         <div class="table-responsive">
-        <table class="table table-bordered" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>No RM</th>
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
-                    <th>Grup</th>
-                    <th>Desa</th>
-                    <th>Menu</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th>No RM</th>
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
-                    <th>Grup</th>
-                    <th>Desa</th>
-                    <th>Menu</th>
-                </tr>
-            </tfoot>
-            <tbody>
-                {% for kontak in object_list %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
-                    {% if kontak.norm is None %}
-                        <td>-</td>
-                    {% else %}
-                        <td>{{kontak.norm}}</td>
-                    {% endif %}
-                    <td>{{kontak.name}}</td>
-                    <td>{{kontak.contact}}</td>
-                    <td>{{kontak.group}}</td>
-                    {% if kontak.desa is None %}
-                        <td>-</td>
-                    {% else %}
-                        <td>{{kontak.desa}}</td>
-                    {% endif %}
-                    <td>
-                        <a class="btn btn-warning" href="{% url 'kontak:ubah' kontak.id %}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger" href="{% url 'kontak:hapus' kontak.id %}"><i class="fas fa-trash"></i></a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% if is_paginated %}
-            <ul class="pagination">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>No RM</th>
+                        <th>Nama</th>
+                        <th>Nomor HP</th>
+                        <th>Grup</th>
+                        <th>Desa</th>
+                        <th>Menu</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>No</th>
+                        <th>No RM</th>
+                        <th>Nama</th>
+                        <th>Nomor HP</th>
+                        <th>Grup</th>
+                        <th>Desa</th>
+                        <th>Menu</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for kontak in object_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        {% if kontak.norm is None %}
+                            <td>-</td>
+                        {% else %}
+                            <td>{{kontak.norm}}</td>
+                        {% endif %}
+                        <td>{{kontak.name}}</td>
+                        <td>{{kontak.contact}}</td>
+                        <td>{{kontak.group}}</td>
+                        {% if kontak.desa is None %}
+                            <td>-</td>
+                        {% else %}
+                            <td>{{kontak.desa}}</td>
+                        {% endif %}
+                        <td>
+                            <a class="btn btn-warning" href="{% url 'kontak:ubah' kontak.id %}"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" href="{% url 'kontak:hapus' kontak.id %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if is_paginated %}
+            <ul class="pagination justify-content-end">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
@@ -126,7 +127,7 @@
                     </li>
                 {% endif %}
             </ul>
-        {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
