@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block heading %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{Judul}}</h1>
+</div>
+{% endblock heading %}
+
+{% block cari %}
+<div class="container">
+    <form method="GET" action=".">
+        <div class="form-group container">
+            <label for="cariKontak" class="font-weight-bold">Saya ingin mencari ...</label>
+            <input type="text" name="q" class="form-control" id="cariKontak" aria-describedby="helpKontak" placeholder="...">
+            <small id="helpKontak" class="form-text text-muted">Masukkan nama/nomor kontak</small>
+          </div>
+    </form>
+</div>
+{% endblock cari %}

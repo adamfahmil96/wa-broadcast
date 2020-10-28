@@ -60,3 +60,30 @@ class KontakDeleteView(RedirectView):
         hapus_id    = kwargs['hapus_id']
         Contacts.objects.filter(id=hapus_id).delete()
         return super().get_redirect_url()
+
+class KontakCariListView(ListView):
+    model           = Contacts
+    template_name   = 'kontak/cari_list.html'
+    ordering        = ['id']
+    count           = 0
+    extra_context   = {
+        'Judul'         : 'Cari Kontak',
+    }
+    def get_context_data(self, *args, **kwargs):
+        self.kwargs.update(self.extra_context)
+        kwargs              = self.kwargs
+        context             = super().get_context_data(*args, **kwargs)
+        context['count']    = self.count or 0
+        context['query']    = self.request.GET.get('q')
+        return context
+    
+    def get_queryset(self):
+        request = self.request
+        query   = request.GET.get('q', None)
+        if query is not None:
+            kontak_results  = Contacts.objects.search(query)
+            qs              = sorted(kontak_results, key=lambda instance: instance.pk, reverse=True)
+            self.count      = len(qs)
+            print(qs)
+            return qs
+        return Contacts.objects.none()
