@@ -11,10 +11,11 @@ class KontakListView(ListView):
     model       = Contacts
     ordering    = ['-id']
     paginate_by = 5
+    kontaks     = Contacts.objects.all()
     extra_context   = {
         'Judul'         : 'Lihat Kontak',
         'Judul_Tabel'   : 'Tabel Kontak',
-        'Total_Kontak'  : Contacts.objects.all().count(),
+        'Total_Kontak'  : kontaks.count(),
     }
     def get_context_data(self, *args, **kwargs):
         self.kwargs.update(self.extra_context)
