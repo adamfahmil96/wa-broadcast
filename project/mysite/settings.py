@@ -90,8 +90,10 @@ DATABASES = {
         'NAME': 'whatsapp',
         'USER': 'admin',
         'PASSWORD': 'S!MRSGos2',
-        'HOST': '168.168.168.124',
-        'PORT': '3306',
+        # 'HOST': '168.168.168.124',
+        'HOST': '103.112.163.253', # PUBLIC
+        # 'PORT': '3306',
+        'PORT': '3309', # PUBLIC
     }
 }
 

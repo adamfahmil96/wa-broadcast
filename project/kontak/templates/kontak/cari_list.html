@@ -18,3 +18,70 @@
     </form>
 </div>
 {% endblock cari %}
+
+{% block data_table %}
+    {% if query is not None %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">{{Judul_Tabel}}</h6>
+        </div>
+        <div class="card-body">
+            <h6 class="font-weight-bold text-right">Total: {{count}}</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>No RM</th>
+                            <th>Nama</th>
+                            <th>Nomor HP</th>
+                            <th>Grup</th>
+                            <th>Desa</th>
+                            <th>Menu</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>No RM</th>
+                            <th>Nama</th>
+                            <th>Nomor HP</th>
+                            <th>Grup</th>
+                            <th>Desa</th>
+                            <th>Menu</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for kontak in object_list %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            {% if kontak.norm is None %}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{kontak.norm}}</td>
+                            {% endif %}
+                            <td>{{kontak.name}}</td>
+                            <td>{{kontak.contact}}</td>
+                            <td>{{kontak.group}}</td>
+                            {% if kontak.desa is None %}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{kontak.desa}}</td>
+                            {% endif %}
+                            <td>
+                                <a class="btn btn-warning" href="{% url 'kontak:ubah' kontak.id %}"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger" href="{% url 'kontak:hapus' kontak.id %}"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" style="text-align: center;">Data kontak "{{query}}" tidak ditemukan</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock data_table %}
