@@ -67,6 +67,7 @@ class KontakCariListView(ListView):
     template_name   = 'kontak/cari_list.html'
     ordering        = ['id']
     count           = 0
+    paginate_by     = 10
     extra_context   = {
         'Judul'         : 'Cari Kontak',
         'Judul_Tabel'   : 'Tabel Hasil Pencarian',
