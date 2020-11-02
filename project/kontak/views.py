@@ -78,9 +78,6 @@ class KontakCariListView(ListView):
         context             = super().get_context_data(*args, **kwargs)
         context['count']    = self.count or 0
         context['query']    = self.request.GET.get('q')
-        print("get_context_data")
-        print(context['query'])
-        print("haha, berarti yang ini")
         return context
     
     def get_queryset(self):
@@ -90,6 +87,5 @@ class KontakCariListView(ListView):
             kontak_results  = Contacts.objects.search(query)
             qs              = sorted(kontak_results, key=lambda instance: instance.pk, reverse=True)
             self.count      = len(qs)
-            print(qs)
             return qs
         return Contacts.objects.none()
